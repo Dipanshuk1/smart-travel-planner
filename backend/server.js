@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import mongoose from "mongoose";
+
+import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -9,6 +11,11 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Connect Database
+connectDB();
+
+app.use("/api/auth", authRoutes);
 
 // Routes
 app.get("/", (req, res) => {
